@@ -10,9 +10,13 @@ espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.9.0"
 constraintlayout = "2.1.4"
+navigation-safe-args-gradle-plugin = "2.6.0"
 room-version = "2.5.2"
 
 [libraries]
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation-safe-args-gradle-plugin" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation-safe-args-gradle-plugin" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation-safe-args-gradle-plugin" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-version" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room-version" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-version" }

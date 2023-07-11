@@ -2,7 +2,6 @@ package cd.ghost.myapplication.di;
 
 import android.content.Context
 import cd.ghost.data.source.TasksRepository
-import cd.ghost.data.source.di.SourcesAnnotationModule
 import cd.ghost.tasks.di.TasksComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -12,8 +11,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        AppBindModule::class,
-        SourcesAnnotationModule::class,
+        AppModuleBinds::class,
+        ViewModelBuilderModule::class,
         SubcomponentsModule::class
     ]
 )

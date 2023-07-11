@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import cd.ghost.tasks.di.TasksComponentProvider
 
-class TasksFragment : Fragment() {
+class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().applicationContext as TasksComponentProvider)
+        (requireActivity().application as TasksComponentProvider)
             .provideTaskComponent()
             .create()
             .inject(this)

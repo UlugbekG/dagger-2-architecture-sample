@@ -7,7 +7,7 @@ import dagger.Module
 
 
 @Module
-interface AppBindModule {
+interface AppModuleBinds {
 
     @Binds
     fun bindRepository(repo: DefaultTasksRepository): TasksRepository

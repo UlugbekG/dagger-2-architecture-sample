@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -41,6 +44,8 @@ dependencies {
     implementation(libs.material)
     testImplementation(libs.junit)
 
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

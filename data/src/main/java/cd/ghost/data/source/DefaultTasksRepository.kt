@@ -4,8 +4,8 @@ import cd.ghost.data.Result
 import cd.ghost.data.Result.Error
 import cd.ghost.data.Result.Success
 import cd.ghost.data.Task
-import cd.ghost.data.source.di.SourcesAnnotationModule.TaskLocalDataSource
-import cd.ghost.data.source.di.SourcesAnnotationModule.TaskRemoteDataSource
+import cd.ghost.data.source.di.TaskLocalDataSource
+import cd.ghost.data.source.di.TaskRemoteDataSource
 import cd.ghost.data.succeeded
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

@@ -8,4 +8,4 @@ import dagger.Module
         TasksComponent::class
     ]
 )
-object SubcomponentsModule
+class SubcomponentsModule
