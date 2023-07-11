@@ -3,7 +3,7 @@ package cd.ghost.myapplication.data.source
 import cd.ghost.myapplication.data.Result
 import cd.ghost.myapplication.data.Task
 
-interface TaskDataSource {
+interface TasksDataSource {
 
     suspend fun getTasks(): Result<List<Task>>
 
@@ -19,9 +19,9 @@ interface TaskDataSource {
 
     suspend fun activateTask(taskId: String)
 
-    suspend fun clearCompletedTask()
+    suspend fun clearCompletedTasks()
 
-    suspend fun deleteAllTask()
+    suspend fun deleteAllTasks()
 
     suspend fun deleteTask(taskId: String)
 

@@ -2,10 +2,10 @@ package cd.ghost.myapplication.data.source.remote
 
 import cd.ghost.myapplication.data.Result
 import cd.ghost.myapplication.data.Task
-import cd.ghost.myapplication.data.source.TaskDataSource
+import cd.ghost.myapplication.data.source.TasksDataSource
 import kotlinx.coroutines.delay
 
-object TaskRemoteDataSource : TaskDataSource {
+object TasksRemoteDataSource : TasksDataSource {
 
     private const val SERVICE_LATENCY_IN_MILLIS = 2000L
 
@@ -60,13 +60,13 @@ object TaskRemoteDataSource : TaskDataSource {
         // Not required for the remote data source
     }
 
-    override suspend fun clearCompletedTask() {
+    override suspend fun clearCompletedTasks() {
         TASKS_SERVICE_DATA = TASKS_SERVICE_DATA.filterValues {
             !it.isCompleted
         } as LinkedHashMap<String, Task>
     }
 
-    override suspend fun deleteAllTask() {
+    override suspend fun deleteAllTasks() {
         TASKS_SERVICE_DATA.clear()
     }
 

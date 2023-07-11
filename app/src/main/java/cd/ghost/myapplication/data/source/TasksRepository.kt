@@ -1,8 +1,9 @@
 package cd.ghost.myapplication.data.source
 
 import cd.ghost.myapplication.data.Task
+import cd.ghost.myapplication.data.Result
 
-interface TaskRepository {
+interface TasksRepository {
 
     suspend fun getTasks(forceUpdate: Boolean = false): Result<List<Task>>
 
@@ -18,9 +19,9 @@ interface TaskRepository {
 
     suspend fun activateTask(taskId: String)
 
-    suspend fun clearCompletedTask()
+    suspend fun clearCompletedTasks()
 
-    suspend fun deleteAllTask()
+    suspend fun deleteAllTasks()
 
     suspend fun deleteTask(taskId: String)
 

@@ -2,15 +2,15 @@ package cd.ghost.myapplication.data.source.local
 
 import cd.ghost.myapplication.data.Result
 import cd.ghost.myapplication.data.Task
-import cd.ghost.myapplication.data.source.TaskDataSource
+import cd.ghost.myapplication.data.source.TasksDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class TaskLocalDataSource(
+class TasksLocalDataSource(
     private val tasksDao: TaskDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : TaskDataSource {
+) : TasksDataSource {
 
     override suspend fun getTasks(): Result<List<Task>> =
         withContext(ioDispatcher) {
@@ -55,11 +55,11 @@ class TaskLocalDataSource(
         tasksDao.updateCompleted(taskId, false)
     }
 
-    override suspend fun clearCompletedTask() = withContext<Unit>(ioDispatcher) {
+    override suspend fun clearCompletedTasks() = withContext<Unit>(ioDispatcher) {
         tasksDao.deleteCompletedTasks()
     }
 
-    override suspend fun deleteAllTask() = withContext(ioDispatcher) {
+    override suspend fun deleteAllTasks() = withContext(ioDispatcher) {
         tasksDao.deleteTasks()
     }
 

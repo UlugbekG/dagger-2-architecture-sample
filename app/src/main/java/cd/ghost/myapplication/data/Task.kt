@@ -19,7 +19,7 @@ import java.util.UUID
 data class Task(
     @ColumnInfo(name = "title") val title: String = "",
     @ColumnInfo(name = "description") val description: String = "",
-    @ColumnInfo(name = "completed") val isCompleted: Boolean = false,
+    @ColumnInfo(name = "completed") var isCompleted: Boolean = false,
     @PrimaryKey @ColumnInfo(name = "entryid") val id: String = UUID.randomUUID().toString()
 ) {
     val titleForList: String

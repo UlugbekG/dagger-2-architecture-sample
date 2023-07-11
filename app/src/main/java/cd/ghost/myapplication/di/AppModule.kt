@@ -2,10 +2,10 @@ package cd.ghost.myapplication.di
 
 import android.content.Context
 import androidx.room.Room
-import cd.ghost.myapplication.data.source.TaskDataSource
-import cd.ghost.myapplication.data.source.local.TaskLocalDataSource
+import cd.ghost.myapplication.data.source.TasksDataSource
+import cd.ghost.myapplication.data.source.local.TasksLocalDataSource
 import cd.ghost.myapplication.data.source.local.ToDoDatabase
-import cd.ghost.myapplication.data.source.remote.TaskRemoteDataSource
+import cd.ghost.myapplication.data.source.remote.TasksRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,8 +28,8 @@ object AppModule {
     @Singleton
     @TaskRemoteDataSource
     @Provides
-    fun provideTaskRemoteDataSource(): TaskDataSource {
-        return TaskRemoteDataSource
+    fun provideTaskRemoteDataSource(): TasksDataSource {
+        return TasksRemoteDataSource
     }
 
     @JvmStatic
@@ -39,8 +39,8 @@ object AppModule {
     fun provideTaskLocalDataSource(
         database: ToDoDatabase,
         ioDispatcher: CoroutineDispatcher
-    ): TaskDataSource {
-        return TaskLocalDataSource(
+    ): TasksDataSource {
+        return TasksLocalDataSource(
             tasksDao = database.taskDao(),
             ioDispatcher = ioDispatcher
         )
