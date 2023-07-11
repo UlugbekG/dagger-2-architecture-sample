@@ -1,13 +1,13 @@
-package cd.ghost.myapplication.data.source
+package cd.ghost.data.source
 
-import cd.ghost.myapplication.data.Result
-import cd.ghost.myapplication.data.Task
+import cd.ghost.data.Result
+import cd.ghost.data.Task
 
-interface TasksDataSource {
+interface TasksRepository {
 
-    suspend fun getTasks(): Result<List<Task>>
+    suspend fun getTasks(forceUpdate: Boolean = false): Result<List<Task>>
 
-    suspend fun getTask(taskId: String): Result<Task>
+    suspend fun getTask(taskId: String, forceUpdate: Boolean = false): Result<Task>
 
     suspend fun saveTask(task: Task)
 

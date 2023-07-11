@@ -1,8 +1,10 @@
-package cd.ghost.myapplication.data.source.remote
+package cd.ghost.data.source.remote
 
-import cd.ghost.myapplication.data.Result
-import cd.ghost.myapplication.data.Task
-import cd.ghost.myapplication.data.source.TasksDataSource
+import cd.ghost.data.Result
+import cd.ghost.data.Result.Error
+import cd.ghost.data.Result.Success
+import cd.ghost.data.Task
+import cd.ghost.data.source.TasksDataSource
 import kotlinx.coroutines.delay
 
 object TasksRemoteDataSource : TasksDataSource {
@@ -26,16 +28,16 @@ object TasksRemoteDataSource : TasksDataSource {
         // Simulate network by delaying the execution.
         val tasks = TASKS_SERVICE_DATA.values.toList()
         delay(SERVICE_LATENCY_IN_MILLIS)
-        return Result.Success(tasks)
+        return Success(tasks)
     }
 
     override suspend fun getTask(taskId: String): Result<Task> {
         // Simulate network by delaying the execution.
         delay(SERVICE_LATENCY_IN_MILLIS)
         TASKS_SERVICE_DATA[taskId]?.let {
-            return Result.Success(it)
+            return Success(it)
         }
-        return Result.Error(Exception("Task not found"))
+        return Error(Exception("Task not found"))
     }
 
     override suspend fun saveTask(task: Task) {

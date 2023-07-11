@@ -1,11 +1,11 @@
-package cd.ghost.myapplication.data.source.local
+package cd.ghost.data.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import cd.ghost.myapplication.data.Task
+import cd.ghost.data.Task
 
 @Dao
 interface TaskDao {

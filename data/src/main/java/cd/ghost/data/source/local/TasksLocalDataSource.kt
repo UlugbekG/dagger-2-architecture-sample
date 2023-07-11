@@ -1,8 +1,10 @@
-package cd.ghost.myapplication.data.source.local
+package cd.ghost.data.source.local
 
-import cd.ghost.myapplication.data.Result
-import cd.ghost.myapplication.data.Task
-import cd.ghost.myapplication.data.source.TasksDataSource
+import cd.ghost.data.Task
+import cd.ghost.data.source.TasksDataSource
+import cd.ghost.data.Result
+import cd.ghost.data.Result.Error
+import cd.ghost.data.Result.Success
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

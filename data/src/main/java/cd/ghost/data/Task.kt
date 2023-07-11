@@ -1,4 +1,4 @@
-package cd.ghost.myapplication.data
+package cd.ghost.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -24,7 +24,6 @@ data class Task(
 ) {
     val titleForList: String
         get() = title.ifEmpty { description }
-
 
     val isActive
         get() = !isCompleted

@@ -1,4 +1,4 @@
-package cd.ghost.myapplication.data
+package cd.ghost.data
 
 /**
  * A generic class that holds a value with its loading status.

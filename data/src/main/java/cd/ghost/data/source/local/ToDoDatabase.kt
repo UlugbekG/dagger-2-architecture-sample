@@ -1,8 +1,8 @@
-package cd.ghost.myapplication.data.source.local
+package cd.ghost.data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import cd.ghost.myapplication.data.Task
+import cd.ghost.data.Task
 
 /**
  * The Room Database that contains the Task table.
