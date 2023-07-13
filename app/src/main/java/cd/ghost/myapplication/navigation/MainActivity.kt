@@ -22,7 +22,8 @@ import cd.ghost.tasks.di.TasksSubcomponent
 import com.google.android.material.navigation.NavigationView
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(),
+class MainActivity :
+    AppCompatActivity(),
     NavControllerHolder,
     TasksComponentProvider,
     DetailTaskComponentProvider {
