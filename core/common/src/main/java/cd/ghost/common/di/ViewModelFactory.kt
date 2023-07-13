@@ -1,4 +1,4 @@
-package cd.ghost.myapplication.di
+package cd.ghost.common.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
 /**
  * ViewModelFactory which uses Dagger to create the instances.
  */
-class TodoViewModelFactory @Inject constructor(
+class ViewModelFactory @Inject constructor(
     private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -42,8 +42,9 @@ abstract class ViewModelBuilderModule {
 
     @Binds
     abstract fun bindViewModelFactory(
-        factory: TodoViewModelFactory
+        factory: ViewModelFactory
     ): ViewModelProvider.Factory
+
 }
 
 @Target(

@@ -2,7 +2,6 @@ package cd.ghost.myapplication.di;
 
 import android.content.Context
 import cd.ghost.data.source.TasksRepository
-import cd.ghost.tasks.di.TasksComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -12,8 +11,6 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         AppModuleBinds::class,
-        ViewModelBuilderModule::class,
-        SubcomponentsModule::class
     ]
 )
 interface AppComponent {
@@ -22,8 +19,6 @@ interface AppComponent {
     interface Factory {
         fun create(@BindsInstance applicationContext: Context): AppComponent
     }
-
-    fun tasksComponent(): TasksComponent.Factory
 
     val tasksRepository: TasksRepository
 }

@@ -17,3 +17,6 @@ rootProject.name = "My Application"
 include(":app")
 include(":feature:tasks")
 include(":data")
+include(":core:common")
+include(":feature:addedittask")
+include(":feature:detailtask")

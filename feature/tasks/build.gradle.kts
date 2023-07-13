@@ -47,6 +47,16 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":data")))
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
+    val lifecycle_version = "2.6.1"
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    implementation("de.musichin.reactivelivedata:reactivelivedata:1.2.0")
+
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
