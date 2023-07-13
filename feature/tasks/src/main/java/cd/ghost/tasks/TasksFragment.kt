@@ -29,7 +29,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity() as TasksComponentProvider)
-            .provideTaskComponent()
+            .provideTaskSubcomponent()
             .create()
             .inject(this)
     }
@@ -81,11 +81,11 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
     }
 
     override fun itemClick(task: Task) {
-//        findNavController().navigate(viewModel.openTask(), bundleOf("task-id" to task.id))
+        viewModel.openTask(taskId = task.id)
     }
 
     override fun itemCheckBoxClick(task: Task, isCompleted: Boolean) {
-//        viewModel.completeTask(task, isCompleted)
+        viewModel.completeTask(task, isCompleted)
     }
 
 }

@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -47,5 +48,10 @@ dependencies {
 
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":data")))
+
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+    implementation("androidx.fragment:fragment-ktx:1.6.0")
+
 
 }

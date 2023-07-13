@@ -11,16 +11,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import cd.ghost.detailtask.di.DetailTaskComponentProvider
+import cd.ghost.detailtask.di.DetailTaskSubcomponent
 import cd.ghost.myapplication.MyApplication
 import cd.ghost.myapplication.R
 import cd.ghost.myapplication.navigation.di.ActivityComponent
 import cd.ghost.myapplication.navigation.di.DaggerActivityComponent
-import cd.ghost.tasks.di.TasksComponent
 import cd.ghost.tasks.di.TasksComponentProvider
+import cd.ghost.tasks.di.TasksSubcomponent
 import com.google.android.material.navigation.NavigationView
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavControllerHolder, TasksComponentProvider {
+class MainActivity : AppCompatActivity(),
+    NavControllerHolder,
+    TasksComponentProvider,
+    DetailTaskComponentProvider {
 
     @Inject
     lateinit var destinationLauncher: DestinationLauncher
@@ -105,8 +110,12 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, TasksComponentPro
         return navController
     }
 
-    override fun provideTaskComponent(): TasksComponent.Factory {
+    override fun provideTaskSubcomponent(): TasksSubcomponent.Factory {
         return activityComponent.taskSubcomponent()
+    }
+
+    override fun provideDetailTaskSubcomponent(): DetailTaskSubcomponent.Factory {
+        return activityComponent.detailTaskSubcomponent()
     }
 
 }

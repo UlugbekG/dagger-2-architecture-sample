@@ -2,9 +2,10 @@ package cd.ghost.myapplication.navigation.di
 
 import cd.ghost.common.di.ActivityScope
 import cd.ghost.common.di.ViewModelBuilderModule
+import cd.ghost.detailtask.di.DetailTaskSubcomponent
 import cd.ghost.myapplication.di.AppComponent
 import cd.ghost.myapplication.navigation.MainActivity
-import cd.ghost.tasks.di.TasksComponent
+import cd.ghost.tasks.di.TasksSubcomponent
 import dagger.Component
 
 @ActivityScope
@@ -28,6 +29,8 @@ interface ActivityComponent {
 
     fun inject(activity: MainActivity)
 
-    fun taskSubcomponent(): TasksComponent.Factory
+    fun taskSubcomponent(): TasksSubcomponent.Factory
+
+    fun detailTaskSubcomponent(): DetailTaskSubcomponent.Factory
 
 }

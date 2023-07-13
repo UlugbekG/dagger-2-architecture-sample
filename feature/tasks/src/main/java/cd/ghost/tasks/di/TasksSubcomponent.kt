@@ -4,11 +4,11 @@ import cd.ghost.tasks.TasksFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TasksModule::class])
-interface TasksComponent {
+interface TasksSubcomponent {
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(): TasksComponent
+        fun create(): TasksSubcomponent
     }
 
     fun inject(fragment: TasksFragment)

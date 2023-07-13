@@ -1,5 +1,6 @@
 package cd.ghost.myapplication.navigation.tasks
 
+import cd.ghost.detailtask.DetailTaskFragment.DetailTask
 import cd.ghost.myapplication.R
 import cd.ghost.myapplication.navigation.DestinationLauncher
 import cd.ghost.tasks.TasksAction
@@ -15,7 +16,10 @@ class TasksDestinationProvider @Inject constructor(
     }
 
     override fun navigateToDisplayTask(taskId: String) {
-        destinationLauncher.launch(R.id.action_tasksFragment_to_detailTaskFragment)
+        destinationLauncher.launch(
+            destinationId = R.id.action_tasksFragment_to_detailTaskFragment,
+            args = DetailTask(taskId)
+        )
     }
 
 }

@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import cd.ghost.common.helper.MutableLiveEvent
 import cd.ghost.common.R
+import cd.ghost.common.helper.MutableLiveEvent
 import cd.ghost.common.helper.asLiveData
 import cd.ghost.common.helper.publishEvent
 import cd.ghost.data.Result
@@ -80,12 +80,12 @@ class TasksViewModel @Inject constructor(
         loadTasks(false)
     }
 
-    fun addNewTask(){
+    fun addNewTask() {
         action.navigateToAddOrNewTask()
     }
 
-    fun openTask(){
-//        action.navigateToDisplayTask()
+    fun openTask(taskId: String) {
+        action.navigateToDisplayTask(taskId)
     }
 
     fun showEditResultMessage(result: Int) {

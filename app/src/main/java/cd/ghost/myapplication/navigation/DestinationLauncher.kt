@@ -7,6 +7,7 @@ import cd.ghost.common.base.ARG_SCREEN
 import cd.ghost.common.di.ActivityScope
 import java.io.Serializable
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @ActivityScope
 class DestinationLauncher @Inject constructor() {

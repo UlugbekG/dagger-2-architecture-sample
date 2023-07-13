@@ -3,8 +3,6 @@ package cd.ghost.myapplication
 import android.app.Application
 import cd.ghost.myapplication.di.AppComponent
 import cd.ghost.myapplication.di.DaggerAppComponent
-import cd.ghost.tasks.di.TasksComponent
-import cd.ghost.tasks.di.TasksComponentProvider
 
 class MyApplication : Application() {
 

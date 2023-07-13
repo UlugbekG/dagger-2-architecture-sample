@@ -1,11 +1,13 @@
 package cd.ghost.myapplication.navigation.di
 
-import cd.ghost.tasks.di.TasksComponent
+import cd.ghost.detailtask.di.DetailTaskSubcomponent
+import cd.ghost.tasks.di.TasksSubcomponent
 import dagger.Module
 
 @Module(
     subcomponents = [
-        TasksComponent::class,
+        TasksSubcomponent::class,
+        DetailTaskSubcomponent::class
     ]
 )
 class SubcomponentsModule
