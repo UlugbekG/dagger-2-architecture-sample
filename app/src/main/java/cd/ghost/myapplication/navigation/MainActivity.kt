@@ -2,6 +2,7 @@ package cd.ghost.myapplication.navigation
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProvi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         val appComponent = (application as MyApplication).appComponent
 
         activityComponent = DaggerActivityComponent
@@ -53,7 +56,9 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProvi
 
         navController = navHost.navController
 
-        destinationLauncher.onCreate(this)
+        if (savedInstanceState == null) prepareRootNavGraph(navController)
+        else prepareRestorationRootNavGraph(savedInstanceState, navController)
+
 
         appBarConfiguration =
             AppBarConfiguration.Builder(R.id.tasksFragment /* R.id.statistics_fragment_dest */)
@@ -62,7 +67,23 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProvi
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         findViewById<NavigationView>(R.id.nav_view).setupWithNavController(navController)
+
+        destinationLauncher.onCreate(this)
     }
+
+    private fun prepareRootNavGraph(navController: NavController) {
+        val graph = navController.navInflater.inflate(R.navigation.nav_graph)
+        navController.graph = graph
+    }
+
+    private fun prepareRestorationRootNavGraph(
+        savedInstState: Bundle,
+        navController: NavController
+    ) {
+        val stateRestoration = savedInstState.getBundle(KEY_START_DESTINATION)
+        navController.restoreState(stateRestoration)
+    }
+
 
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,6 +1,11 @@
 package cd.ghost.myapplication.navigation.di
 
-import cd.ghost.myapplication.navigation.tasks.TasksDestinationProvider
+import cd.ghost.addedittask.AddEditTaskRouter
+import cd.ghost.common.di.ActivityScope
+import cd.ghost.detailtask.TaskDetailRouter
+import cd.ghost.myapplication.navigation.actions.AddEditTaskDestinations
+import cd.ghost.myapplication.navigation.actions.TaskDetailDestinations
+import cd.ghost.myapplication.navigation.actions.TasksDestinations
 import cd.ghost.tasks.TasksAction
 import dagger.Binds
 import dagger.Module
@@ -8,7 +13,16 @@ import dagger.Module
 @Module
 interface ActionsBindModule {
 
+    @ActivityScope
     @Binds
-    fun actionTasks(tasksDestinationProvider: TasksDestinationProvider): TasksAction
+    fun bindTasks(tasks: TasksDestinations): TasksAction
+
+    @ActivityScope
+    @Binds
+    fun bindTaskDetail(taskDetail: TaskDetailDestinations): TaskDetailRouter
+
+    @ActivityScope
+    @Binds
+    fun bindAddEditTask(addEditTask: AddEditTaskDestinations): AddEditTaskRouter
 
 }

@@ -4,12 +4,11 @@ import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
 import cd.ghost.common.base.ARG_SCREEN
-import cd.ghost.common.di.ActivityScope
 import java.io.Serializable
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@ActivityScope
+@Singleton
 class DestinationLauncher @Inject constructor() {
 
     private var currentActivity: FragmentActivity? = null
@@ -17,7 +16,6 @@ class DestinationLauncher @Inject constructor() {
 
     fun onCreate(activity: FragmentActivity) {
         this.currentActivity = activity
-        currentActivity = activity
     }
 
     fun onStart() {
@@ -42,6 +40,12 @@ class DestinationLauncher @Inject constructor() {
                     args = bundleOf(ARG_SCREEN to args)
                 )
             }
+        }
+    }
+
+    fun pop() {
+        if (started) {
+            getNavHolder().navController().popBackStack()
         }
     }
 

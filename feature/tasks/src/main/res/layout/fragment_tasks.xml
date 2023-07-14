@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TasksFragment">
+    android:layout_height="match_parent">
 
     <cd.ghost.common.base.ScrollChildSwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -56,7 +54,7 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_gravity="center"
-                    android:contentDescription="@string/no_tasks_image_content_description" />
+                    android:contentDescription="@string/no_tasks_image_content_description"/>
 
                 <TextView
                     android:id="@+id/no_tasks_text"
@@ -65,7 +63,6 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/list_item_padding" />
             </LinearLayout>
-
         </RelativeLayout>
 
     </cd.ghost.common.base.ScrollChildSwipeRefreshLayout>

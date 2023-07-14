@@ -12,13 +12,6 @@ class ScrollChildSwipeRefreshLayout @JvmOverloads constructor(
 
     var scrollUpChild: View? = null
 
-    var refreshingProcess: Boolean?
-        get() = isRefreshing
-        set(value) {
-            isRefreshing = value ?: false
-        }
-    fun setRefreshListener(listen: () -> Unit) = setOnRefreshListener { listen() }
-
     override fun canChildScrollUp() =
         scrollUpChild?.canScrollVertically(-1) ?: super.canChildScrollUp()
 }

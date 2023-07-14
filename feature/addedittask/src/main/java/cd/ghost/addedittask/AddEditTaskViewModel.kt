@@ -3,6 +3,7 @@ package cd.ghost.addedittask
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cd.ghost.common.base.Constants
 import cd.ghost.common.helper.MutableLiveEvent
 import cd.ghost.common.helper.asLiveData
 import cd.ghost.common.helper.publishEvent
@@ -13,12 +14,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddEditTaskViewModel @Inject constructor(
-    private val repository: TasksRepository
+    private val repository: TasksRepository,
+    private val router: AddEditTaskRouter
 ) : ViewModel() {
+    // Two-way databinding, exposing MutableLiveData
+    var title = ""
 
     // Two-way databinding, exposing MutableLiveData
-    private val _contentState = MutableLiveData(ContentState())
-    val contentState = _contentState.asLiveData()
+    var description = ""
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading = _dataLoading.asLiveData()
@@ -26,37 +29,21 @@ class AddEditTaskViewModel @Inject constructor(
     private val _snackbarText = MutableLiveEvent<Int>()
     val snackbarText = _snackbarText.asLiveData()
 
-    private val _taskUpdatedEvent = MutableLiveEvent<Unit>()
-    val taskUpdatedEvent = _taskUpdatedEvent.asLiveData()
+    private var taskId: String? = null
 
     private var isNewTask: Boolean = false
 
     private var isDataLoaded = false
 
-    private fun getTaskId(): String? = _contentState.value?.taskId
-
-    private fun setTaskId(value: String?) {
-        _contentState.value = _contentState.value?.copy(
-            taskId = value
-        )
-    }
-
-    private fun getCompletion(): Boolean = _contentState.value?.isCompleted ?: false
-
-    private fun setCompletion(value: Boolean) {
-        _contentState.value = _contentState.value?.copy(
-            isCompleted = value
-        )
-    }
+    private var taskCompleted = false
 
     fun start(taskId: String?) {
-        if (_dataLoading.value == true) return
+        if (_dataLoading.value == true) {
+            return
+        }
 
-        setTaskId(taskId)
-
-        val task_id = getTaskId()
-
-        if (task_id == null) {
+        this.taskId = taskId
+        if (taskId == null) {
             // No need to populate, it's a new task
             isNewTask = true
             return
@@ -70,7 +57,7 @@ class AddEditTaskViewModel @Inject constructor(
         _dataLoading.value = true
 
         viewModelScope.launch {
-            repository.getTask(task_id).let { result ->
+            repository.getTask(taskId).let { result ->
                 if (result is Success) {
                     onTaskLoaded(result.data)
                 } else {
@@ -81,11 +68,9 @@ class AddEditTaskViewModel @Inject constructor(
     }
 
     private fun onTaskLoaded(task: Task) {
-        _contentState.value = _contentState.value?.copy(
-            title = task.title,
-            description = task.description,
-            isCompleted = task.isCompleted
-        )
+        title = task.title
+        description = task.description
+        taskCompleted = task.isCompleted
         _dataLoading.value = false
         isDataLoaded = true
     }
@@ -95,28 +80,31 @@ class AddEditTaskViewModel @Inject constructor(
     }
 
     // Called when clicking on fab.
-    fun saveTask(title: String?, description: String?) {
-        if (title == null || description == null) {
+    fun saveTask() {
+        val currentTitle = title
+        val currentDescription = description
+
+        if (currentTitle == null || currentDescription == null) {
             _snackbarText.publishEvent(cd.ghost.common.R.string.empty_task_message)
             return
         }
-        if (Task(title, description).isEmpty) {
+        if (Task(currentTitle, currentDescription).isEmpty) {
             _snackbarText.publishEvent(cd.ghost.common.R.string.empty_task_message)
             return
-        }
-        val currentTaskId = getTaskId()
-        if (isNewTask || currentTaskId == null) {
-            createTask(Task(title, description))
-        } else {
-            val task = Task(title, description, getCompletion(), currentTaskId)
-            updateTask(task)
         }
 
+        val currentTaskId = taskId
+        if (isNewTask || currentTaskId == null) {
+            createTask(Task(currentTitle, currentDescription))
+        } else {
+            val task = Task(currentTitle, currentDescription, taskCompleted, currentTaskId)
+            updateTask(task)
+        }
     }
 
     private fun createTask(newTask: Task) = viewModelScope.launch {
         repository.saveTask(newTask)
-        _taskUpdatedEvent.publishEvent(Unit)
+        router.popWithMessage(Constants.ADD_EDIT_RESULT_OK)
     }
 
     private fun updateTask(task: Task) {
@@ -125,14 +113,7 @@ class AddEditTaskViewModel @Inject constructor(
         }
         viewModelScope.launch {
             repository.saveTask(task)
-            _taskUpdatedEvent.publishEvent(Unit)
+            router.popWithMessage(Constants.ADD_EDIT_RESULT_OK)
         }
     }
-
-    data class ContentState(
-        var taskId: String? = null,
-        var title: String = "",
-        var description: String = "",
-        var isCompleted: Boolean = false
-    )
 }

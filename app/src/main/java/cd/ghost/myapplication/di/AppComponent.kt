@@ -2,6 +2,7 @@ package cd.ghost.myapplication.di;
 
 import android.content.Context
 import cd.ghost.data.source.TasksRepository
+import cd.ghost.myapplication.navigation.DestinationLauncher
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -21,5 +22,8 @@ interface AppComponent {
     }
 
     val tasksRepository: TasksRepository
+
+    val destinationLauncher: DestinationLauncher
+
 }
 

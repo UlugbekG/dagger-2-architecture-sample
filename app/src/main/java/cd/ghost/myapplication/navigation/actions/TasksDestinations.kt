@@ -1,5 +1,7 @@
-package cd.ghost.myapplication.navigation.tasks
+package cd.ghost.myapplication.navigation.actions
 
+import android.util.Log
+import cd.ghost.common.di.ActivityScope
 import cd.ghost.detailtask.DetailTaskFragment.DetailTaskArgument
 import cd.ghost.myapplication.R
 import cd.ghost.myapplication.navigation.DestinationLauncher
@@ -7,7 +9,8 @@ import cd.ghost.tasks.TasksAction
 import javax.inject.Inject
 
 
-class TasksDestinationProvider @Inject constructor(
+
+class TasksDestinations @Inject constructor(
     private val destinationLauncher: DestinationLauncher
 ) : TasksAction {
 

@@ -43,15 +43,17 @@ android {
 
 dependencies {
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.constraintlayout)
     implementation(project(mapOf("path" to ":feature:tasks")))
     implementation(project(mapOf("path" to ":feature:addedittask")))
     implementation(project(mapOf("path" to ":feature:detailtask")))
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":core:common")))
+
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+
     testImplementation(libs.junit)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
@@ -66,4 +68,5 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }

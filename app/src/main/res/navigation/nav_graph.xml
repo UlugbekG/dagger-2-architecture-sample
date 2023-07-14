@@ -84,6 +84,10 @@
     <fragment
         android:id="@+id/detailTaskFragment"
         android:name="cd.ghost.detailtask.DetailTaskFragment"
-        android:label="DetailTaskFragment" />
+        android:label="DetailTaskFragment" >
+        <action
+            android:id="@+id/action_detailTaskFragment_to_addEditTaskFragment"
+            app:destination="@id/addEditTaskFragment" />
+    </fragment>
 
 </navigation>

@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import cd.ghost.common.R
+import cd.ghost.common.base.Constants.ADD_EDIT_RESULT_OK
+import cd.ghost.common.base.Constants.DELETE_RESULT_OK
+import cd.ghost.common.base.Constants.EDIT_RESULT_OK
 import cd.ghost.common.helper.MutableLiveEvent
 import cd.ghost.common.helper.asLiveData
 import cd.ghost.common.helper.publishEvent
@@ -22,7 +25,7 @@ class TasksViewModel @Inject constructor(
     private val action: TasksAction
 ) : ViewModel() {
 
-    private val _items = MutableLiveData<List<Task>>().apply { value = emptyList() }
+    private val _items = MutableLiveData<List<Task>>(emptyList())
     val items = _items.asLiveData()
 
     private val _dataLoading = MutableLiveData<Boolean>()
@@ -88,7 +91,7 @@ class TasksViewModel @Inject constructor(
         action.navigateToDisplayTask(taskId)
     }
 
-    fun showEditResultMessage(result: Int) {
+    fun showEditResultMessage(result: Int?) {
         when (result) {
             EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_saved_task_message)
             ADD_EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_added_task_message)

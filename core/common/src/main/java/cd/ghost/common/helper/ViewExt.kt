@@ -1,8 +1,12 @@
 package cd.ghost.common.helper
 
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import cd.ghost.common.R
+import cd.ghost.common.base.ScrollChildSwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -34,5 +38,20 @@ fun View.setupSnackbar(
         event?.getContentIfNotHandled()?.let {
             showSnackbar(context.getString(it), timeLength)
         }
+    }
+}
+
+fun Fragment.setupRefreshLayout(
+    refreshLayout: ScrollChildSwipeRefreshLayout,
+    scrollUpChild: View? = null
+) {
+    refreshLayout.setColorSchemeColors(
+        ContextCompat.getColor(requireActivity(), R.color.colorPrimary),
+        ContextCompat.getColor(requireActivity(), R.color.colorAccent),
+        ContextCompat.getColor(requireActivity(), R.color.colorPrimaryDark)
+    )
+    // Set the scrolling view in the custom SwipeRefreshLayout.
+    scrollUpChild?.let {
+        refreshLayout.scrollUpChild = it
     }
 }
