@@ -1,22 +1,23 @@
 package cd.ghost.detailtask
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import cd.ghost.common.base.BaseScreen
+import cd.ghost.common.base.BaseArgument
 import cd.ghost.common.base.args
 import cd.ghost.common.helper.viewBinding
 import cd.ghost.detailtask.databinding.FragmentDetailTaskBinding
-import cd.ghost.detailtask.di.DetailTaskComponentProvider
+import cd.ghost.detailtask.di.DetailTaskSubcompProvider
 import javax.inject.Inject
 
 class DetailTaskFragment : Fragment(R.layout.fragment_detail_task) {
 
-    class DetailTask(
+    class DetailTaskArgument(
         val taskId: String
-    ) : BaseScreen
+    ) : BaseArgument
 
     private val binding by viewBinding<FragmentDetailTaskBinding>()
 
@@ -25,15 +26,17 @@ class DetailTaskFragment : Fragment(R.layout.fragment_detail_task) {
 
     private val viewModel by viewModels<DetailTaskViewModel> { factory }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        (requireActivity() as DetailTaskComponentProvider)
-            .provideDetailTaskSubcomponent()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity() as DetailTaskSubcompProvider)
+            .provideDetailTaskSubcomp()
             .create()
             .inject(this)
+    }
 
-        val task = args<DetailTask>().taskId
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val task = args<DetailTaskArgument>()?.taskId
         viewModel.initTask(task)
     }
 

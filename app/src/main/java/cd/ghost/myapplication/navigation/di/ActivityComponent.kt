@@ -1,5 +1,6 @@
 package cd.ghost.myapplication.navigation.di
 
+import cd.ghost.addedittask.di.AddEditTaskSubcomponent
 import cd.ghost.common.di.ActivityScope
 import cd.ghost.common.di.ViewModelBuilderModule
 import cd.ghost.detailtask.di.DetailTaskSubcomponent
@@ -10,9 +11,7 @@ import dagger.Component
 
 @ActivityScope
 @Component(
-    dependencies = [
-        AppComponent::class
-    ],
+    dependencies = [AppComponent::class],
     modules = [
         ActivityModule::class,
         ActionsBindModule::class,
@@ -32,5 +31,7 @@ interface ActivityComponent {
     fun taskSubcomponent(): TasksSubcomponent.Factory
 
     fun detailTaskSubcomponent(): DetailTaskSubcomponent.Factory
+
+    fun addEditTaskSubcomponent(): AddEditTaskSubcomponent.Factory
 
 }

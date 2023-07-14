@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".TasksFragment">
 
-    <cd.ghost.tasks.view.ScrollChildSwipeRefreshLayout
+    <cd.ghost.common.base.ScrollChildSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -68,7 +68,7 @@
 
         </RelativeLayout>
 
-    </cd.ghost.tasks.view.ScrollChildSwipeRefreshLayout>
+    </cd.ghost.common.base.ScrollChildSwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_task_fab"

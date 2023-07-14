@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import cd.ghost.common.helper.viewBinding
 import cd.ghost.data.Task
 import cd.ghost.tasks.databinding.FragmentTasksBinding
-import cd.ghost.tasks.di.TasksComponentProvider
+import cd.ghost.tasks.di.TasksSubcompProvider
 import javax.inject.Inject
 
 class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
@@ -28,8 +28,8 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity() as TasksComponentProvider)
-            .provideTaskSubcomponent()
+        (requireActivity() as TasksSubcompProvider)
+            .provideTaskSubcomp()
             .create()
             .inject(this)
     }
@@ -41,7 +41,6 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
             tasksList.adapter = adapter
 
@@ -49,17 +48,17 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
                 viewModel.addNewTask()
             }
 
-            refreshLayout.setOnRefreshListener {
+            refreshLayout.setRefreshListener {
                 viewModel.refresh()
             }
 
             viewModel.dataLoading.observe(viewLifecycleOwner) {
-                refreshLayout.isRefreshing = it
+                refreshLayout.refreshingProcess = it
             }
 
             viewModel.empty.observe(viewLifecycleOwner) {
-                tasksLinearLayout.isVisible = it
-                noTasksLayout.isVisible = !it
+                tasksLinearLayout.isVisible = !it
+                noTasksLayout.isVisible = it
             }
 
             viewModel.currentFilteringLabel.observe(viewLifecycleOwner) {
@@ -67,7 +66,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskItemClickListener {
             }
 
             viewModel.items.observe(viewLifecycleOwner) {
-
+                adapter.submitList(it)
             }
 
             viewModel.noTaskIconRes.observe(viewLifecycleOwner) {

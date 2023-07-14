@@ -51,6 +51,7 @@ dependencies {
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     implementation("androidx.fragment:fragment-ktx:1.6.0")
 
 

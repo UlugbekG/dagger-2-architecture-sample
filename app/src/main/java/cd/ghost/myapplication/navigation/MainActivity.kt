@@ -11,22 +11,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import cd.ghost.detailtask.di.DetailTaskComponentProvider
+import cd.ghost.addedittask.di.AddEditTaskSubcomponent
 import cd.ghost.detailtask.di.DetailTaskSubcomponent
 import cd.ghost.myapplication.MyApplication
 import cd.ghost.myapplication.R
 import cd.ghost.myapplication.navigation.di.ActivityComponent
 import cd.ghost.myapplication.navigation.di.DaggerActivityComponent
-import cd.ghost.tasks.di.TasksComponentProvider
 import cd.ghost.tasks.di.TasksSubcomponent
 import com.google.android.material.navigation.NavigationView
 import javax.inject.Inject
 
-class MainActivity :
-    AppCompatActivity(),
-    NavControllerHolder,
-    TasksComponentProvider,
-    DetailTaskComponentProvider {
+class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProviders {
 
     @Inject
     lateinit var destinationLauncher: DestinationLauncher
@@ -111,12 +106,16 @@ class MainActivity :
         return navController
     }
 
-    override fun provideTaskSubcomponent(): TasksSubcomponent.Factory {
+    override fun provideTaskSubcomp(): TasksSubcomponent.Factory {
         return activityComponent.taskSubcomponent()
     }
 
-    override fun provideDetailTaskSubcomponent(): DetailTaskSubcomponent.Factory {
+    override fun provideDetailTaskSubcomp(): DetailTaskSubcomponent.Factory {
         return activityComponent.detailTaskSubcomponent()
+    }
+
+    override fun provideAddEditTaskSubcomp(): AddEditTaskSubcomponent.Factory {
+        return activityComponent.addEditTaskSubcomponent()
     }
 
 }

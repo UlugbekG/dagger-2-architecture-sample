@@ -8,7 +8,7 @@ class DetailTaskViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    fun initTask(taskId: String) {
+    fun initTask(taskId: String?) {
 
     }
 }

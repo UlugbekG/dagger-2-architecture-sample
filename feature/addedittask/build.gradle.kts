@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -31,7 +32,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -47,4 +48,12 @@ dependencies {
 
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":data")))
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
+    implementation("androidx.fragment:fragment-ktx:1.6.0")
+
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+
 }
