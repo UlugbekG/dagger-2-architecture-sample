@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProvi
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBundle(KEY_START_DESTINATION, navController.saveState())
-
     }
 
     override fun onRestoreInstanceState(
