@@ -1,6 +1,6 @@
 package cd.ghost.tasks
 
-interface TasksAction {
+interface TasksRouter {
 
     fun navigateToAddOrNewTask()
 

@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(project(mapOf("path" to ":feature:statistics")))
 
     testImplementation(libs.junit)
     implementation(libs.dagger)

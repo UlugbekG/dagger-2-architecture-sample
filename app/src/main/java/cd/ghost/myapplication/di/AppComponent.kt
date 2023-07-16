@@ -2,7 +2,7 @@ package cd.ghost.myapplication.di;
 
 import android.content.Context
 import cd.ghost.data.source.TasksRepository
-import cd.ghost.myapplication.navigation.DestinationLauncher
+import cd.ghost.myapplication.navigation.actions.DestinationLauncher
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

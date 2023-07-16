@@ -1,4 +1,4 @@
-package cd.ghost.myapplication.navigation
+package cd.ghost.myapplication.navigation.actions
 
 import androidx.navigation.NavController
 

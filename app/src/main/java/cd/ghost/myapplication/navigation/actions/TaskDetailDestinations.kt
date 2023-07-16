@@ -3,7 +3,6 @@ package cd.ghost.myapplication.navigation.actions
 import cd.ghost.addedittask.AddEditTaskFragment.AddEditTaskArgument
 import cd.ghost.detailtask.TaskDetailRouter
 import cd.ghost.myapplication.R
-import cd.ghost.myapplication.navigation.DestinationLauncher
 import javax.inject.Inject
 
 class TaskDetailDestinations @Inject constructor(

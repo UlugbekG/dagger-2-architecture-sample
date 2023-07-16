@@ -29,8 +29,6 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         val message: Int
     ) : BaseArgument
 
-    private val TAG = "TasksFragment"
-
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel by viewModels<TasksViewModel> { factory }
@@ -54,50 +52,39 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.setupSnackbar(this, viewModel.snackbarText, Snackbar.LENGTH_SHORT)
+        setHasOptionsMenu(true)
+        view.setupSnackbar(this, viewModel.userMessage, Snackbar.LENGTH_SHORT)
 
         val message = args<TasksArgument>()?.message
         viewModel.showEditResultMessage(message)
 
         binding.apply {
             tasksList.adapter = adapter
-            // Set the lifecycle owner to the lifecycle of the view
-            setupRefreshLayout(refreshLayout, tasksList)
 
-            viewModel.items.observe(viewLifecycleOwner) {
-                adapter.submitList(it)
-            }
+            setupRefreshLayout(refreshLayout, tasksList)
 
             refreshLayout.setOnRefreshListener {
                 viewModel.refresh()
             }
 
-            viewModel.dataLoading.observe(viewLifecycleOwner) {
-                refreshLayout.isRefreshing = it
-            }
+            viewModel.state.observe(viewLifecycleOwner){ state ->
+                adapter.submitList(state.tasks)
 
-            viewModel.empty.observe(viewLifecycleOwner) {
-                tasksLinearLayout.isVisible = !it
-                noTasksLayout.isVisible = it
-            }
+                refreshLayout.isRefreshing = state.dataLoading
+                tasksLinearLayout.isVisible = !state.empty
+                noTasksLayout.isVisible = state.empty
 
-            viewModel.noTaskIconRes.observe(viewLifecycleOwner) {
-                noTasksIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), it))
-            }
-
-            viewModel.noTasksLabel.observe(viewLifecycleOwner) {
-                noTasksText.text = getText(it)
-            }
-
-            viewModel.currentFilteringLabel.observe(viewLifecycleOwner) {
-                filteringText.text = getText(it)
+                // filter filter ui
+                val filter = state.filterUiC
+                noTasksIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), filter.noTaskIconRes))
+                noTasksText.text = getText(filter.noTasksLabel)
+                filteringText.text = getText(filter.filterLabel)
             }
 
             addTaskFab.setOnClickListener {
-                Log.d(TAG, "onViewCreated: ")
                 viewModel.addNewTask()
             }
+
         }
     }
 

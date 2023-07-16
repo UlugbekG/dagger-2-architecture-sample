@@ -6,7 +6,7 @@ import cd.ghost.detailtask.TaskDetailRouter
 import cd.ghost.myapplication.navigation.actions.AddEditTaskDestinations
 import cd.ghost.myapplication.navigation.actions.TaskDetailDestinations
 import cd.ghost.myapplication.navigation.actions.TasksDestinations
-import cd.ghost.tasks.TasksAction
+import cd.ghost.tasks.TasksRouter
 import dagger.Binds
 import dagger.Module
 
@@ -15,7 +15,7 @@ interface ActionsBindModule {
 
     @ActivityScope
     @Binds
-    fun bindTasks(tasks: TasksDestinations): TasksAction
+    fun bindTasks(tasks: TasksDestinations): TasksRouter
 
     @ActivityScope
     @Binds
@@ -24,5 +24,6 @@ interface ActionsBindModule {
     @ActivityScope
     @Binds
     fun bindAddEditTask(addEditTask: AddEditTaskDestinations): AddEditTaskRouter
+
 
 }

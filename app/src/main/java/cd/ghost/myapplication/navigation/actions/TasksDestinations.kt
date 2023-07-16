@@ -1,18 +1,15 @@
 package cd.ghost.myapplication.navigation.actions
 
-import android.util.Log
-import cd.ghost.common.di.ActivityScope
 import cd.ghost.detailtask.DetailTaskFragment.DetailTaskArgument
 import cd.ghost.myapplication.R
-import cd.ghost.myapplication.navigation.DestinationLauncher
-import cd.ghost.tasks.TasksAction
+import cd.ghost.tasks.TasksRouter
 import javax.inject.Inject
 
 
 
 class TasksDestinations @Inject constructor(
     private val destinationLauncher: DestinationLauncher
-) : TasksAction {
+) : TasksRouter {
 
     override fun navigateToAddOrNewTask() {
         destinationLauncher.launch(R.id.action_tasksFragment_to_addEditTaskFragment)
