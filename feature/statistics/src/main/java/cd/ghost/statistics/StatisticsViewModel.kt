@@ -9,9 +9,11 @@ import cd.ghost.common.helper.publishEvent
 import cd.ghost.data.Result.Success
 import cd.ghost.data.Task
 import cd.ghost.data.source.TasksRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class StatisticsViewModel @Inject constructor(
     private val repository: TasksRepository
 ) : ViewModel() {

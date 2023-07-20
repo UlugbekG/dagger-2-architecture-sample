@@ -1,6 +1,5 @@
 package cd.ghost.detailtask
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -10,35 +9,25 @@ import android.widget.CheckBox
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import cd.ghost.common.base.BaseArgument
 import cd.ghost.common.base.args
 import cd.ghost.common.helper.setupRefreshLayout
 import cd.ghost.common.helper.setupSnackbar
 import cd.ghost.common.helper.viewBinding
 import cd.ghost.detailtask.databinding.FragmentDetailTaskBinding
-import cd.ghost.detailtask.di.DetailTaskSubcompProvider
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailTaskFragment : Fragment(R.layout.fragment_detail_task) {
 
     class DetailTaskArgument(
         val taskId: String
     ) : BaseArgument
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-    private val viewModel by viewModels<DetailTaskViewModel> { factory }
+    private val viewModel by viewModels<DetailTaskViewModel>()
     private val binding by viewBinding<FragmentDetailTaskBinding>()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity() as DetailTaskSubcompProvider)
-            .provideDetailTaskSubcomp()
-            .create()
-            .inject(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,9 +15,11 @@ import cd.ghost.common.helper.publishEvent
 import cd.ghost.data.Result.Success
 import cd.ghost.data.Task
 import cd.ghost.data.source.TasksRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class TasksViewModel @Inject constructor(
     private val repository: TasksRepository,
     private val action: TasksRouter
@@ -88,9 +90,11 @@ class TasksViewModel @Inject constructor(
                         TasksFilterType.ACTIVE_TASKS -> if (task.isActive) {
                             tasksToShow.add(task)
                         }
+
                         TasksFilterType.COMPLETED_TASKS -> if (task.isCompleted) {
                             tasksToShow.add(task)
                         }
+
                         else -> tasksToShow.add(task)
                     }
                 }

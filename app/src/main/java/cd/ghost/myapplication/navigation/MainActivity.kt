@@ -17,14 +17,15 @@ import cd.ghost.myapplication.MyApplication
 import cd.ghost.myapplication.R
 import cd.ghost.myapplication.navigation.actions.DestinationLauncher
 import cd.ghost.myapplication.navigation.actions.NavControllerHolder
-import cd.ghost.myapplication.navigation.di.ActivityComponent
 import cd.ghost.myapplication.navigation.di.DaggerActivityComponent
 import cd.ghost.statistics.di.StatisticsSubcomponent
 import cd.ghost.tasks.di.TasksSubcomponent
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProviders {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), NavControllerHolder {
 
     @Inject
     lateinit var destinationLauncher: DestinationLauncher
@@ -32,16 +33,9 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProvi
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
-    private lateinit var activityComponent: ActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val appComponent = (application as MyApplication).appComponent
-        activityComponent = DaggerActivityComponent
-            .factory()
-            .create(appComponent)
-            .apply { inject(this@MainActivity) }
 
         setContentView(R.layout.activity_main)
 
@@ -124,22 +118,6 @@ class MainActivity : AppCompatActivity(), NavControllerHolder, SubcomponentProvi
 
     override fun navController(): NavController {
         return navController
-    }
-
-    override fun provideTaskSubcomp(): TasksSubcomponent.Factory {
-        return activityComponent.taskSubcomponent()
-    }
-
-    override fun provideDetailTaskSubcomp(): DetailTaskSubcomponent.Factory {
-        return activityComponent.detailTaskSubcomponent()
-    }
-
-    override fun provideStatisticsSubComp(): StatisticsSubcomponent.Factory {
-        return activityComponent.statisticsSubcomponent()
-    }
-
-    override fun provideAddEditTaskSubcomp(): AddEditTaskSubcomponent.Factory {
-        return activityComponent.addEditTaskSubcomponent()
     }
 
 }

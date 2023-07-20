@@ -1,8 +1,6 @@
 package cd.ghost.tasks
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -12,38 +10,28 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import cd.ghost.common.base.BaseArgument
 import cd.ghost.common.base.args
 import cd.ghost.common.helper.setupRefreshLayout
 import cd.ghost.common.helper.setupSnackbar
 import cd.ghost.common.helper.viewBinding
 import cd.ghost.tasks.databinding.FragmentTasksBinding
-import cd.ghost.tasks.di.TasksSubcompProvider
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     class TasksArgument(
         val message: Int
     ) : BaseArgument
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-    private val viewModel by viewModels<TasksViewModel> { factory }
+    private val viewModel by viewModels<TasksViewModel>()
 
     private val binding by viewBinding<FragmentTasksBinding>()
 
     private lateinit var adapter: TasksAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity() as TasksSubcompProvider)
-            .provideTaskSubcomp()
-            .create()
-            .inject(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +55,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
                 viewModel.refresh()
             }
 
-            viewModel.state.observe(viewLifecycleOwner){ state ->
+            viewModel.state.observe(viewLifecycleOwner) { state ->
                 adapter.submitList(state.tasks)
 
                 refreshLayout.isRefreshing = state.dataLoading
@@ -76,7 +64,12 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
                 // filter filter ui
                 val filter = state.filterUiC
-                noTasksIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), filter.noTaskIconRes))
+                noTasksIcon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        filter.noTaskIconRes
+                    )
+                )
                 noTasksText.text = getText(filter.noTasksLabel)
                 filteringText.text = getText(filter.filterLabel)
             }
