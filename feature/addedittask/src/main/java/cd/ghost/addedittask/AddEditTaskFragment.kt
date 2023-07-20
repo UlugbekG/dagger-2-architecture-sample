@@ -2,7 +2,6 @@ package cd.ghost.addedittask
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -14,11 +13,13 @@ import cd.ghost.common.base.BaseArgument
 import cd.ghost.common.base.args
 import cd.ghost.common.helper.setupRefreshLayout
 import cd.ghost.common.helper.setupSnackbar
+import cd.ghost.common.helper.showToast
 import cd.ghost.common.helper.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
+
     class AddEditTaskArgument(
         val taskId: String?
     ) : BaseArgument
@@ -32,13 +33,11 @@ class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         (requireActivity() as AddEditTaskSubcompProvider)
             .provideAddEditTaskSubcomp()
             .create()
             .inject(this)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +49,8 @@ class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
         super.onViewCreated(view, savedInstanceState)
 
         view.setupSnackbar(this, viewModel.snackbarText, Snackbar.LENGTH_SHORT)
+
+//        requireContext().showToast(viewLifecycleOwner, viewModel.snackbarText)
 
         this.setupRefreshLayout(binding.refreshLayout)
 
@@ -76,6 +77,5 @@ class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
                 viewModel.saveTask()
             }
         }
-
     }
 }

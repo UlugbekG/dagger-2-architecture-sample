@@ -2,7 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    kotlin("kapt")
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hiltLibrary)
 }
 
 android {
@@ -43,21 +44,20 @@ android {
 
 dependencies {
 
+    implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":feature:tasks")))
     implementation(project(mapOf("path" to ":feature:addedittask")))
     implementation(project(mapOf("path" to ":feature:detailtask")))
-    implementation(project(mapOf("path" to ":data")))
-    implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":feature:statistics")))
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(project(mapOf("path" to ":feature:statistics")))
 
-    testImplementation(libs.junit)
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -67,7 +67,9 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
 
+    // testing
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.junit)
 
 }

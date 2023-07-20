@@ -2,7 +2,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
-    kotlin("kapt")
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hiltLibrary)
 }
 
 android {
@@ -39,21 +40,20 @@ android {
 
 dependencies {
 
+    implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":data")))
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    testImplementation(libs.junit)
+    implementation(libs.fragment.ktx)
+    implementation(libs.swiperefreshlayout)
 
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 
-    implementation(project(mapOf("path" to ":core:common")))
-    implementation(project(mapOf("path" to ":data")))
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
-
+    // testing
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.junit)
 }

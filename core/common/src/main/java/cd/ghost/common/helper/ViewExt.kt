@@ -1,6 +1,8 @@
 package cd.ghost.common.helper
 
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -37,6 +39,14 @@ fun View.setupSnackbar(
     snackbarEvent.observe(lifecycleOwner) { event ->
         event?.getContentIfNotHandled()?.let {
             showSnackbar(context.getString(it), timeLength)
+        }
+    }
+}
+
+fun Context.showToast(lifecycleOwner: LifecycleOwner, event: LiveData<Event<Int>>) {
+    event.observe(lifecycleOwner) { r ->
+        r?.getContentIfNotHandled()?.let {
+            Toast.makeText(this, this.getString(it), Toast.LENGTH_SHORT).show()
         }
     }
 }

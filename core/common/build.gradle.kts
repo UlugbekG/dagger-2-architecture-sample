@@ -2,7 +2,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
-    kotlin("kapt")
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hiltLibrary)
 }
 
 android {
@@ -43,12 +44,13 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(libs.swiperefreshlayout)
+
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+
+    // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
 }
